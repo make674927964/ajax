@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--<div></div>-->
+<form action="" method="get">
+    账号：<input type="text" name="user">
+    密码：<input type="text" name="pass">
+    <input type="submit">
+</form>
+</body>
+</html>
+<script>
+    let input = document.querySelector("input[type='submit']");
+    input.onclick = function (e) {
+        e.preventDefault();
+        let ajax = new XMLHttpRequest();
+        let str = ""
+        let inp = document.querySelectorAll(`input[type=text]`);
+        inp.forEach(function (val) {
+                str += val.name + '=' + val.value + "&"
+        })
+        str.slice(0, -1)
+        ajax.open('get', 'PHP.php?'+str,true);
+        ajax.send();
+        ajax.onreadystatechange = function () {
+            if (ajax.readyState == 4) {
+                if (ajax.status == 200) {
+                    console.log(ajax.response);
+                }
+            }
+        }
+    }
+
+</script>
